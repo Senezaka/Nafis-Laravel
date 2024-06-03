@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra - Website Page</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,565;1,565&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo"><img src="image/logoweb.png" alt=""></a>
+
+    <ul class="navmenu">
+        <li><a href="#contact" class="scroll-to">About</a></li>
+        <li><a href="#trending" class="scroll-to">products</a></li>
+        <li><a href="#client-reviews" class="scroll-to">Review</a></li>
+        <li><a href="#update-news" class="scroll-to">Update</a></li>
+    </ul>
+</nav>
+
+    <section class="main-home">
+        <div class="main-text">
+            <h3>Golden Era :</h3>
+            <h1>Flew  <br> On Top! </h1>
+            <p>Stay Classy Everywhere!</p>
+
+            <a href="#trending" class="main-btn">Shop Now <i class='bx bx-right-arrow-alt'></i></a>
+        </div>
+
+        
+    </section>
+
+<section class="trending product" id="trending">
+        <div class="center-text">
+            <h2>Our Trending <span>Products</span></h2>
+        </div>
+
+        <div id="app">
+            <div class="products">
+                <div class="row" v-for="product in products" :key="product.id">
+                    <img :src="product.image" :alt="product.name">
+                    <div class="product-text">
+                        <h5>{{ product.label }}</h5>
+                    </div>
+                    <div class="heart-icon">
+                        <i class='bx bx-heart'></i>
+                    </div>
+                    <div class="ratting">
+                        <i class='bx bx-star' v-for="n in 4" :key="n"></i>
+                        <i class='bx bxs-star-half'></i>
+                    </div>
+
+                    <div class="price">
+                        <h4>{{ product.name }}</h4>
+                        <p>{{ product.price }}</p>
+                    </div>
+                    <div class="stock">
+                        <p>Stock: {{ product.stock }}</p>
+                    </div>
+                    <div class="quantity-controls">
+                        <button @click="decreaseQuantity(product)">-</button>
+                        <span>{{ product.quantity }}</span>
+                        <button @click="increaseQuantity(product)">+</button>
+                    </div>
+                    <div class="buttons">
+                        <button @click="addToCart(product)">Add to Cart</button>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-modal" v-if="isCartOpen">
+              <button class="close-btn" @click="toggleCart"><i class='bx bx-x'></i></button>
+                <div class="cart">
+                    <h2>Shopping Cart</h2>
+                    <div v-if="cart.length === 0">
+                        <p>Your shopping cart is empty. Start adding some products!</p>
+                    </div>
+                    <div v-else>
+                        <div v-for="item in cart" :key="item.id" class="cart-item">
+                            <img :src="item.image" :alt="item.name">
+                            <div class="cart-item-details">
+                                <h4>{{ item.name }}</h4>
+                                <p>{{ item.price }}</p>
+                                <div class="quantity-controls">
+                                    <button @click="decreaseCartQuantity(item)"> - </button>
+                                    <span> {{ item.quantity }} </span>
+                                    <button @click="increaseCartQuantity(item)"> + </button>
+                                </div>
+                                <button @click="removeFromCart(item)">Remove</button>
+                            </div>
+                        </div>
+                        <div class="cart-total">
+                            <h3>Total: {{ cartTotal }}</h3>
+                        </div>
+                        <button @click="checkout">Checkout</button>
+                        <button @click="toggleCart">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<section class="client-reviews" id="client-reviews">
+        <div class="reviews">
+            <h3>Client Reviews</h3>
+            <img src="image/client.jpg" alt="">
+            <p>
+                "Lyra Web has been an absolute game-changer for my business. As someone who relies heavily on web-based tools for my day-to-day operations, finding a platform that seamlessly integrates all the essential features I need was a breath of fresh air.
+                The user interface is sleek and intuitive, making navigation a breeze even for someone like me who isn't particularly tech-savvy. From project management to team collaboration, Lyra Web has streamlined my workflow like never before.
+                One of the standout features for me is the robust customization options. Whether it's tweaking project settings or designing personalized dashboards, Lyra Web empowers me to tailor the platform to suit my unique needs perfectly."
+
+            <h2>Yong Praha</h2>
+            <p>CEO of Mikopo</p>
+    </div>
+</section>
+
+<section class="Update-news" id="update-news">
+    <div class="up-center-text">
+        <h2>New <span>Update</span></h2>
+    </div>
+
+    <div class="update-cart">
+        <div class="cart">
+            <img src="image/picnic.jpg" alt="">
+            <h5>16 May 2024</h5>
+            <h4>Let's Start bring sale on this summer vacation</h4>
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."  
+            </p>
+
+            <button>Continue Reading</button>
+        </div>
+
+        <div class="cart">
+            <img src="image/golden.jpg" alt="">
+            <h5>22 May 2024</h5>
+            <h4>Golden Party</h4>
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+
+            <button>Continue Reading</button>
+        </div>
+
+        <div class="cart">
+            <img src="image/autumn.jpg" alt="">
+            <h5>1 August 2024</h5>
+            <h4>So Long, London</h4>
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+
+            <button>Continue Reading</button>
+        </div>
+    </div>
+</section>
+
+<!-- contact-section -->
+<section class="contact" id="contact">
+    <div class="contact-info">
+        <div class="first-info">
+            <img src="image/logoweb.png" alt="">
+
+            <p>12345 Kliningan,<br> Buah Batu No.6</p>
+            <p>089510754177</p>
+            <p>lyrastore@gmail.com</p>
+
+            <div class="social-icon">
+                <a href="#"><i class='bx bxl-facebook'></i></a>
+                <a href="#"><i class='bx bxl-twitter'></i></a>
+                <a href="#"><i class='bx bxl-instagram'></i></a>
+                <a href="#"><i class='bx bxl-youtube'></i></a>
+                <a href="#"><i class='bx bxl-linkedin'></i></a>
+            </div>
+        </div>
+
+        <div class="second-info">
+            <h4>Support</h4>
+            <p>Contact Us</p>
+            <p>About page</p>
+            <p>Size Guide</p>
+            <p>Shopping & Returns</p>
+            <p>Privacy</p>
+        </div>
+
+        <div class="third-info">
+            <h4>Shop</h4>
+            <p>Men's Shopping</p>
+            <p>Women's Shopping</p>
+            <p>Kids' Shopping</p>
+            <p>Furniture</p>
+            <p>Discount</p>
+        </div>
+
+        <div class="fourth info">
+            <h4>Company</h4>
+            <p>About</p>
+            <p>Blog</p>
+            <p>Affiliate</p>
+            <p>Login</p>
+        </div>
+
+        <div class="five">
+            <h4>Subscribe</h4>
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+        </div>
+    </div>
+</section>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                products: [
+                    { id: 1, name: 'Blue Suit', price: '1550000', image: 'image/image1.jpg', label: 'Sale', quantity: 1, stock: 10 },
+                    { id: 2, name: 'Glamour Black Suit', price: '959900', image: 'image/image2.jpg', label: 'New', quantity: 1, stock: 5 },
+                    { id: 3, name: 'Flop Piece', price: '125000', image: 'image/image3.jpg', label: 'New', quantity: 1, stock: 8 },
+                    { id: 4, name: 'Sporty Vibes', price: '1200000', image: 'image/image4.jpg', label: 'Hot', quantity: 1, stock: 3 },
+                    { id: 5, name: 'Chic Scream', price: '745000', image: 'image/image6.jpg', label: 'New', quantity: 1, stock: 6 },
+                    { id: 6, name: 'Casual Ethic', price: '250000', image: 'image/image7.jpg', label: 'Hot', quantity: 1, stock: 7 },
+                    { id: 7, name: 'Fresh Out Slammer', price: '1150000', image: 'image/image8.jpg', label: 'Sale', quantity: 1, stock: 4 },
+                    { id: 8, name: 'Edgy Fanta', price: '1450000', image: 'image/image9.jpg', label: 'Sale', quantity: 1, stock: 2 }
+                ],
+                cart: [],
+                isCartOpen: false,
+                searchQuery:'',
+            };
+        },
+        computed: {
+            cartTotal() {
+                return this.cart.reduce((total, item) => {
+                    let price = parseFloat(item.price.replace(/[^0-9.-]+/g,""));
+                    return total + (price * item.quantity);
+                }, 0);
+            }
+        },
+        methods: {
+            increaseQuantity(product) {
+                if (product.quantity < product.stock) {
+                    product.quantity++;
+                }
+            },
+            decreaseQuantity(product) {
+                if (product.quantity > 1) {
+                    product.quantity--;
+                }
+            },
+            increaseCartQuantity(item) {
+                const product = this.products.find(product => product.id === item.id);
+                if (item.quantity < product.stock) {
+                    item.quantity++;
+                }
+            },
+            decreaseCartQuantity(item) {
+                if (item.quantity > 1) {
+                    item.quantity--;
+                }
+            },
+            addToCart(product) {
+                const cartItem = this.cart.find(item => item.id === product.id);
+                if (cartItem) {
+                    if (cartItem.quantity + product.quantity <= product.stock) {
+                        cartItem.quantity += product.quantity;
+                    } else {
+                        alert('Not enough stock');
+                    }
+                } else {
+                    if (product.quantity <= product.stock) {
+                        this.cart.push({ ...product });
+                    } else {
+                        alert('Not enough stock');
+                    }
+                }
+                this.isCartOpen = true;
+                product.quantity = 1;
+            },
+            removeFromCart(product) {
+                const index = this.cart.findIndex(item => item.id === product.id);
+                if (index > -1) {
+                    this.cart.splice(index, 1);
+                }
+            },
+            checkout() {
+                alert('Checkout successful!');
+                this.cart = [];
+                this.isCartOpen = false;
+            },
+            toggleCart() {
+                this.isCartOpen = !this.isCartOpen;
+            },
+        }
+    });
+
+    app.mount('#app');
+</script>
+</body>
+</html>
